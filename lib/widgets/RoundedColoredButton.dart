@@ -31,28 +31,28 @@ class RoundedColoredButton extends StatelessWidget {
           BoxShadow(
             color: Colors.grey,
             spreadRadius: 0,
-            blurRadius: this.shadowBlurRadius,
+            blurRadius: shadowBlurRadius,
           ),
         ],
       ),
       child: TextButton(
           style: ButtonStyle(
             fixedSize: MaterialStateProperty.all(Size(
-                this.width,
-                this.height,
+                width,
+                height,
             )),
-            foregroundColor: MaterialStateProperty.all(this.textColor),
-            backgroundColor: MaterialStateProperty.all(this.fillColor),
+            foregroundColor: MaterialStateProperty.all(textColor),
+            backgroundColor: MaterialStateProperty.all(fillColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
           ),
-          onPressed: this.onPressed,
+          onPressed: onPressed,
           child: Text(
-            this.text,
-            style: TextStyle(
+            text,
+            style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w400
             ),
