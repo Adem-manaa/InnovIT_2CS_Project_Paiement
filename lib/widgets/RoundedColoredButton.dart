@@ -7,6 +7,7 @@ class RoundedColoredButton extends StatelessWidget {
   Color textColor;
   Color fillColor;
   String text;
+  double? textSize;
   VoidCallback onPressed;
   double shadowBlurRadius;
 
@@ -16,6 +17,7 @@ class RoundedColoredButton extends StatelessWidget {
     required this.width,
     required this.height,
     required this.text,
+    this.textSize,
     required this.textColor,
     required this.fillColor,
     required this.shadowBlurRadius,
@@ -25,6 +27,8 @@ class RoundedColoredButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: height,
+      width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
@@ -52,8 +56,8 @@ class RoundedColoredButton extends StatelessWidget {
           onPressed: onPressed,
           child: Text(
             text,
-            style: const TextStyle(
-                fontSize: 25,
+            style: TextStyle(
+                fontSize: (textSize != null) ? textSize : 25,
                 fontWeight: FontWeight.w400
             ),
           )
