@@ -97,8 +97,8 @@ class CommandPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 35),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 35),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -121,7 +121,7 @@ class CommandPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Text(
+                  const Text(
                       'ESI, Alger',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
