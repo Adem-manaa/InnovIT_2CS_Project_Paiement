@@ -37,7 +37,7 @@ class CommandPage extends StatelessWidget {
                       SizedBox(
                         width: 125,
                         height: 125,
-                        child: Image.asset('assets/images/drinkExample.png'),
+                        child: Image.asset('assets/images/drinkCappuccino.png'),
                       ),
                       const Column(
                         children: [
