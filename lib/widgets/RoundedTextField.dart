@@ -6,6 +6,9 @@ class RoundedTextField extends StatelessWidget {
   Color borderColor;
   Color selectedBorderColor;
   Icon? trailingIcon;
+  Icon? prefixIcon;
+  double? borderRadius;
+  TextEditingController? controller;
   RoundedTextField({
     Key? key,
     required this.hintText,
@@ -13,6 +16,9 @@ class RoundedTextField extends StatelessWidget {
     required this.borderColor,
     required this.selectedBorderColor,
     this.trailingIcon,
+    this.prefixIcon,
+    this.borderRadius,
+    this.controller
   }) : super(key: key);
 
   @override
@@ -25,9 +31,9 @@ class RoundedTextField extends StatelessWidget {
             color: const Color(0xff9BAEBC),
           ),
           filled: false,
-          contentPadding: const EdgeInsets.only(left: 15, top: 5, bottom: 5),
+          contentPadding:  const EdgeInsets.only(left: 15, top: 5, bottom: 5),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular((borderRadius != null) ? borderRadius! : 20),
             borderSide: BorderSide(
                 width: 1,
                 color: borderColor
@@ -37,8 +43,10 @@ class RoundedTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide(width: 1, color: selectedBorderColor),
         ),
+          prefixIcon: prefixIcon,
           suffixIcon: trailingIcon,
       ),
+      controller: controller,
     );
   }
 }
