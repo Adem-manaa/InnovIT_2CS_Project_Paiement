@@ -64,56 +64,64 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
             padding: const EdgeInsets.all(15),
             child: Container(
               height: 400,
-              child: ListView.separated(
+              child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return Container(
-                    height: 180,
-                    width: 365,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                          BoxShadow(blurRadius: 5, color: Colors.grey),
-                        ]),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(
-                          methods[index].cardLogo,
-                          color: Colors.blue.shade900,
-                          size: 45,
-                        ),
-                        Text(
-                          methods[index].cardNumber,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              'Card Owner : ${methods[index].owner}',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 5,),
+                      Row(
+                        children: [
+                          const SizedBox(width: 5,),
+                          Container(
+                            height: 180,
+                            width: 344,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: const [
+                                  BoxShadow(blurRadius: 3, color: Colors.grey),
+                                ]),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  methods[index].cardLogo,
+                                  color: Colors.blue.shade900,
+                                  size: 45,
+                                ),
+                                Text(
+                                  methods[index].cardNumber,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold, fontSize: 20),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      'Card Owner : ${methods[index].owner}',
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Text(
+                                      'expires : ${methods[index].expiryDate}',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 10,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            Text(
-                              'expires : ${methods[index].expiryDate}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 15,
+                          ),
+                          const SizedBox(width: 5,),
+                        ],
+                      ),
+                      const SizedBox(height: 5,),
+                    ],
                   );
                 },
                 itemCount: methods.length,
@@ -150,10 +158,10 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
     );
   }
 
-  Future openDialog() => showDialog(
+  void openDialog() => showDialog(
         context: context,
         builder: (context) => Dialog(
-          insetPadding: EdgeInsets.fromLTRB(20, 50, 20, 20),
+          insetPadding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
           child: Container(
             height: 500,
             decoration: BoxDecoration(
@@ -167,7 +175,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
+                    const Text(
                       'Add payment information',
                       style: TextStyle(
                         fontSize: 20,
@@ -190,7 +198,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                           hintTextSize: 14,
                           borderColor: Colors.grey.shade500,
                           selectedBorderColor: coffeeBeige,
-                          prefixIcon: Icon(Icons.credit_card),
+                          prefixIcon: const Icon(Icons.credit_card),
                           borderRadius: 17,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -212,7 +220,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                               hintTextSize: 14,
                               borderColor: Colors.grey.shade500,
                               selectedBorderColor: coffeeBeige,
-                              prefixIcon: Icon(Icons.calendar_month),
+                              prefixIcon: const Icon(Icons.calendar_month),
                               borderRadius: 17,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -232,7 +240,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                               hintTextSize: 14,
                               borderColor: Colors.grey.shade500,
                               selectedBorderColor: coffeeBeige,
-                              prefixIcon: Icon(Icons.add_card),
+                              prefixIcon: const Icon(Icons.add_card),
                               borderRadius: 17,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -250,7 +258,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                           hintTextSize: 14,
                           borderColor: Colors.grey.shade500,
                           selectedBorderColor: coffeeBeige,
-                          prefixIcon: Icon(Icons.person_pin_outlined),
+                          prefixIcon: const Icon(Icons.person_pin_outlined),
                           borderRadius: 17,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -274,6 +282,12 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                             formKey.currentState!.save();
                             addCard();
                             Navigator.of(context).pop();
+                            const snackBar = SnackBar(
+                                content: Text(
+                                  'Card added succefully',
+                                ),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
                           }
                         }
                     ),

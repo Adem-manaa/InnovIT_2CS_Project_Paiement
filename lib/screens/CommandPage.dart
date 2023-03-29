@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:innovit_2cs_project_paiement/screens/PaymentMethodsPage.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedColoredButton.dart';
 import 'package:innovit_2cs_project_paiement/widgets/SimpleAppbar.dart';
 
@@ -122,13 +123,25 @@ class CommandPage extends StatelessWidget {
                     ),
                   ),
                   const Text(
-                      'ESI, Alger',
+                    'ESI, Alger',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                     ),
                   ),
-                  RoundedColoredButton(width: 260, height: 50, text: '40.00DA', textColor: Colors.white, fillColor: deepGreen, shadowBlurRadius: 0, onPressed: (){}),
+                  RoundedColoredButton(
+                      width: 260,
+                      height: 50,
+                      text: '40.00DA',
+                      textColor: Colors.white,
+                      fillColor: deepGreen,
+                      shadowBlurRadius: 0,
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PaymentMethodsPage()));
+                      }),
                 ],
               ),
             ),

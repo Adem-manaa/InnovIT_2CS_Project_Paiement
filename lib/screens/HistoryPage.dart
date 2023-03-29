@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:innovit_2cs_project_paiement/models/HistoryItem.dart';
 import 'package:innovit_2cs_project_paiement/utilities/constants.dart';
-import 'package:innovit_2cs_project_paiement/widgets/CustomBottomNavBar.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedColoredButton.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedTextField.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -269,16 +268,6 @@ class _HistoryPageState extends State<HistoryPage> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: CustomBottomNavBar(
-        icon1: const Icon(Icons.history),
-        icon2: const Icon(Icons.qr_code_scanner_outlined),
-        icon3: const Icon(Icons.person),
-        label1: 'History',
-        label2: 'Scan',
-        label3: 'Profile',
-        selectedItemColor: coffeeBrown,
-        unselectedItemColor: Colors.black,
       ),
     );
   }
