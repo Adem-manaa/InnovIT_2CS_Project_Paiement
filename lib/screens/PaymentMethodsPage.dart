@@ -41,7 +41,6 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
   void initState() {
     super.initState();
     methods = loadData();
-    print(methods.length);
   }
 
   @override
@@ -194,6 +193,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                     SizedBox(
                         width: 307,
                         child: RoundedTextFormField(
+                          hideText: false,
                           hintText: 'Card number',
                           hintTextSize: 14,
                           borderColor: Colors.grey.shade500,
@@ -216,6 +216,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                         SizedBox(
                             width: 163,
                             child: RoundedTextFormField(
+                              hideText: false,
                               hintText: 'Expiration date',
                               hintTextSize: 14,
                               borderColor: Colors.grey.shade500,
@@ -236,6 +237,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                         SizedBox(
                             width: 139,
                             child: RoundedTextFormField(
+                              hideText: false,
                               hintText: 'CVV code',
                               hintTextSize: 14,
                               borderColor: Colors.grey.shade500,
@@ -254,6 +256,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                     SizedBox(
                         width: 307,
                         child: RoundedTextFormField(
+                          hideText: false,
                           hintText: 'Owner’s name',
                           hintTextSize: 14,
                           borderColor: Colors.grey.shade500,
@@ -284,7 +287,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                             Navigator.of(context).pop();
                             const snackBar = SnackBar(
                                 content: Text(
-                                  'Card added succefully',
+                                  'Card added successfully',
                                 ),
                             );
                             ScaffoldMessenger.of(context).showSnackBar(snackBar);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:innovit_2cs_project_paiement/screens/MainPage.dart';
+import 'package:innovit_2cs_project_paiement/screens/SignInPage.dart';
 
 
 void main() {
@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Outfit'
       ),
-      home: MainPage(),
+      home:  SignInPage(),
+      //todo: make home different if user is already signed in
     );
   }
 }

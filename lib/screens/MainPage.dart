@@ -16,9 +16,9 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int currentIndex = 1;
   final screens = [
-    HistoryPage(),
-    ScanPage(),
-    ProfilePage(),
+    const HistoryPage(),
+    const ScanPage(),
+    const ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {

@@ -9,6 +9,8 @@ class RoundedTextField extends StatelessWidget {
   Icon? prefixIcon;
   double? borderRadius;
   TextEditingController? controller;
+  int? minLines;
+  int? maxLines;
   RoundedTextField({
     Key? key,
     required this.hintText,
@@ -18,7 +20,9 @@ class RoundedTextField extends StatelessWidget {
     this.trailingIcon,
     this.prefixIcon,
     this.borderRadius,
-    this.controller
+    this.controller,
+    this.minLines,
+    this.maxLines
   }) : super(key: key);
 
   @override
@@ -47,6 +51,8 @@ class RoundedTextField extends StatelessWidget {
           suffixIcon: trailingIcon,
       ),
       controller: controller,
+      minLines: minLines,
+      maxLines: maxLines,
     );
   }
 }

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:innovit_2cs_project_paiement/screens/PaymentMethodsPage.dart';
-import 'package:innovit_2cs_project_paiement/widgets/RoundedColoredButton.dart';
 import 'package:innovit_2cs_project_paiement/widgets/SimpleAppbar.dart';
 
 import '../utilities/constants.dart';
-
-class CommandPage extends StatelessWidget {
-  double sugarAmount = 2;
-  CommandPage({Key? key}) : super(key: key);
+class HistoryDetailsPage extends StatelessWidget {
+  const HistoryDetailsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double sugarAmount = 2;
     return Scaffold(
-      appBar: const SimpleAppBar(title: 'Command'),
+      appBar: const SimpleAppBar(
+        title: 'Details',
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
         child: Column(
@@ -90,9 +89,9 @@ class CommandPage extends StatelessWidget {
                       ),
                       Text(
                         "${sugarAmount.truncate()}    ",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24
                         ),
                       )
                     ],
@@ -143,19 +142,70 @@ class CommandPage extends StatelessWidget {
                       fontSize: 20,
                     ),
                   ),
-                  RoundedColoredButton(
-                      width: 260,
-                      height: 50,
-                      text: '40.00DA',
-                      textColor: Colors.white,
-                      fillColor: deepGreen,
-                      shadowBlurRadius: 0,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PaymentMethodsPage()));
-                      }),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Text(
+                                'Payment Method: ',
+                                style:  TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Image.asset('assets/images/pypl.png'),
+                            ],
+                          ),
+                          const Row(
+                            children: [
+                              Text(
+                                'Card number: ',
+                                style:  TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Text(
+                                '****   ****  ****  1234',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 6,),
+                          const Row(
+                            children: [
+                              Text(
+                                'Card owner: ',
+                                style:  TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Text(
+                                'Me myself and i',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10,),
+                  const Text(
+                    '40.00 DA',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 32,
+                    ),
+                  ),
                 ],
               ),
             ),

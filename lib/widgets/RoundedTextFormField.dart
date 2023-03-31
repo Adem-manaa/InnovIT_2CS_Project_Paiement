@@ -7,6 +7,7 @@ class RoundedTextFormField extends StatelessWidget {
   Icon? trailingIcon;
   Icon? prefixIcon;
   double? borderRadius;
+  bool? hideText;
   TextEditingController? controller;
   FormFieldValidator? validator;
   FormFieldSetter<String?>? onSaved;
@@ -16,6 +17,7 @@ class RoundedTextFormField extends StatelessWidget {
     required this.hintTextSize,
     required this.borderColor,
     required this.selectedBorderColor,
+    this.hideText,
     this.trailingIcon,
     this.prefixIcon,
     this.borderRadius,
@@ -27,6 +29,7 @@ class RoundedTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: (hideText == null)? false : hideText!,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(
