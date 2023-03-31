@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:innovit_2cs_project_paiement/utilities/constants.dart';
-import 'package:innovit_2cs_project_paiement/widgets/RoundedColoredButton.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedTextField.dart';
 
-class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
+import '../utilities/constants.dart';
+import '../widgets/RoundedColoredButton.dart';
+
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,77 +13,94 @@ class SignInPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
-              'Sign in now',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 30,
-                color: Colors.black,
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
-                  child: Image.asset('assets/images/app_logo.png'),
-                ),
-                const Text(
-                  'SmartBev',
+                Text(
+                  'Sign up now',
                   style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                    color: coffeeBrown,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 30,
+                    color: Colors.black,
                   ),
                 ),
               ],
             ),
             RoundedTextField(
-              hintText: 'Enter your email',
+              hintText: 'First name',
               hintTextSize: 17,
               borderColor: const Color(0xff251201).withOpacity(0.2),
               selectedBorderColor: coffeeBeige.withOpacity(0.7),
             ),
             RoundedTextField(
-              hintText: 'Enter your password',
+              hintText: 'Last name',
+              hintTextSize: 17,
+              borderColor: const Color(0xff251201).withOpacity(0.2),
+              selectedBorderColor: coffeeBeige.withOpacity(0.7),
+            ),
+            RoundedTextField(
+              hintText: 'Email',
+              hintTextSize: 17,
+              borderColor: const Color(0xff251201).withOpacity(0.2),
+              selectedBorderColor: coffeeBeige.withOpacity(0.7),
+            ),
+            RoundedTextField(
+              hintText: 'Phone number',
+              hintTextSize: 17,
+              borderColor: const Color(0xff251201).withOpacity(0.2),
+              selectedBorderColor: coffeeBeige.withOpacity(0.7),
+            ),
+            RoundedTextField(
+              hintText: 'Password',
               hintTextSize: 17,
               borderColor: const Color(0xff251201).withOpacity(0.2),
               selectedBorderColor: coffeeBeige.withOpacity(0.7),
               trailingIcon: const Icon(Icons.remove_red_eye_outlined),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Checkbox(
-                      checkColor: Colors.black,
-                      value: false,
-                      onChanged: (value) {},
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      side: MaterialStateBorderSide.resolveWith(
-                        (states) => const BorderSide(
-                            width: 1.0, color: Color(0xff9BAEBC)),
-                      ),
-                    ),
-                    const Text(
-                      'Remember me',
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: Color(0xff9BAEBC),
-                      ),
-                    ),
-                  ],
+                Checkbox(
+                  checkColor: Colors.black,
+                  value: false,
+                  onChanged: (value) {},
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  side: MaterialStateBorderSide.resolveWith(
+                    (states) =>
+                        const BorderSide(width: 1.0, color: Color(0xff9BAEBC)),
+                  ),
                 ),
                 const Text(
-                  'Forgot password ?',
+                  'I accept ',
                   style: TextStyle(
                     fontSize: 17,
-                    color: Color(0xff9BAEBC),
+                    color: Colors.black,
+                  ),
+                ),
+                const Text(
+                  'terms ',
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: coffeeBrown,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+                const Text(
+                  'and ',
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.black,
+                  ),
+                ),
+                const Text(
+                  'conditions ',
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: coffeeBrown,
+                    decoration: TextDecoration.underline,
                   ),
                 ),
               ],
@@ -90,7 +108,7 @@ class SignInPage extends StatelessWidget {
             RoundedColoredButton(
                 width: 350,
                 height: 50,
-                text: 'Sign In',
+                text: 'Sign Up',
                 textColor: Colors.white,
                 fillColor: coffeeBrown.withOpacity(0.7),
                 shadowBlurRadius: 7,
@@ -136,7 +154,7 @@ class SignInPage extends StatelessWidget {
                     size: 40,
                   ),
                   Text(
-                    'Login with google',
+                    'Sign up with google',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -149,14 +167,14 @@ class SignInPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Don’t have an account ?  ',
+                  'Already have an account ?  ',
                   style: TextStyle(
                     fontSize: 17,
                     color: Colors.black,
                   ),
                 ),
                 Text(
-                  'Sign up',
+                  'Sign in',
                   style: TextStyle(
                     fontSize: 17,
                     color: coffeeBrown,

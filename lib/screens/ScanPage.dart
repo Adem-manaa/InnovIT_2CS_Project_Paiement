@@ -19,7 +19,7 @@ class ScanPage extends StatelessWidget {
             height: 50,
             child: Image.asset('assets/images/app_logo.png'),
           ),
-          Text(
+          const Text(
             'Scan your command from the vending machine\n screen',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -43,9 +43,9 @@ class ScanPage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: CustomBottomNavBar(
-        icon1: Icon(Icons.history),
-        icon2: Icon(Icons.qr_code_scanner_outlined),
-        icon3: Icon(Icons.person),
+        icon1: const Icon(Icons.history),
+        icon2: const Icon(Icons.qr_code_scanner_outlined),
+        icon3: const Icon(Icons.person),
         label1: 'History',
         label2: 'Scan',
         label3: 'Profile',
