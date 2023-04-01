@@ -7,6 +7,7 @@ class RoundedColoredButton extends StatelessWidget {
   Color textColor;
   Color fillColor;
   String text;
+  double? textSize;
   VoidCallback onPressed;
   double shadowBlurRadius;
 
@@ -16,6 +17,7 @@ class RoundedColoredButton extends StatelessWidget {
     required this.width,
     required this.height,
     required this.text,
+    this.textSize,
     required this.textColor,
     required this.fillColor,
     required this.shadowBlurRadius,
@@ -25,35 +27,37 @@ class RoundedColoredButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: height,
+      width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: Colors.grey,
             spreadRadius: 0,
-            blurRadius: this.shadowBlurRadius,
+            blurRadius: shadowBlurRadius,
           ),
         ],
       ),
       child: TextButton(
           style: ButtonStyle(
             fixedSize: MaterialStateProperty.all(Size(
-                this.width,
-                this.height,
+                width,
+                height,
             )),
-            foregroundColor: MaterialStateProperty.all(this.textColor),
-            backgroundColor: MaterialStateProperty.all(this.fillColor),
+            foregroundColor: MaterialStateProperty.all(textColor),
+            backgroundColor: MaterialStateProperty.all(fillColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
           ),
-          onPressed: this.onPressed,
+          onPressed: onPressed,
           child: Text(
-            this.text,
+            text,
             style: TextStyle(
-                fontSize: 25,
+                fontSize: (textSize != null) ? textSize : 25,
                 fontWeight: FontWeight.w400
             ),
           )

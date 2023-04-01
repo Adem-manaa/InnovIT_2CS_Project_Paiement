@@ -3,19 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
+  Icon icon1;
+  Icon icon2;
+  Icon icon3;
 
-   Icon icon1;
-   Icon icon2;
-   Icon icon3;
+  String label1;
+  String label2;
+  String label3;
 
-   String label1;
-   String label2;
-   String label3;
+  Color selectedItemColor;
+  Color unselectedItemColor;
 
-   Color selectedItemColor;
-   Color unselectedItemColor;
+  int currentIndex;
 
-   CustomBottomNavBar({
+  void Function(int)? onTap;
+
+  CustomBottomNavBar({
     Key? key,
     required this.icon1,
     required this.icon2,
@@ -25,6 +28,8 @@ class CustomBottomNavBar extends StatefulWidget {
     required this.label3,
     required this.selectedItemColor,
     required this.unselectedItemColor,
+    required this.currentIndex,
+    this.onTap
   }) : super(key: key);
 
   @override
@@ -35,32 +40,23 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15)
-        ),
+            topLeft: Radius.circular(15), topRight: Radius.circular(15)),
         boxShadow: [
-          BoxShadow(
-              color: Colors.black38,
-              spreadRadius: 0,
-              blurRadius: 12
-          ),
+          BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 12),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15)
-        ),
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(15), topRight: Radius.circular(15)),
         child: BottomNavigationBar(
+          currentIndex: widget.currentIndex,
           selectedItemColor: widget.selectedItemColor,
           unselectedItemColor: widget.unselectedItemColor,
+          onTap: widget.onTap,
           items: [
-            BottomNavigationBarItem(
-                icon: widget.icon1,
-                label: widget.label1
-            ),
+            BottomNavigationBarItem(icon: widget.icon1, label: widget.label1),
             BottomNavigationBarItem(
               icon: widget.icon2,
               label: widget.label2,
