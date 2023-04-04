@@ -214,7 +214,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                       shadowBlurRadius: 1,
                       onPressed: (){}),
                    Text(
-                    'All rights reserved © InnovIt 2023',
+                    'All rights reserved to © InnovIt 2023',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
