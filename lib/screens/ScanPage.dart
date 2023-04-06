@@ -1,9 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:innovit_2cs_project_paiement/widgets/CustomBottomNavBar.dart';
+import 'package:innovit_2cs_project_paiement/screens/CommandPage.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedColoredButton.dart';
 
 import '../utilities/constants.dart';
+import 'QRScannerPage.dart';
 
 class ScanPage extends StatelessWidget {
   const ScanPage({Key? key}) : super(key: key);
@@ -28,29 +28,18 @@ class ScanPage extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          Container(
-            child: Image.asset('assets/images/qr_code.png'),
-          ),
           RoundedColoredButton(
               width: 260,
               height: 50,
-              text: 'Confirm',
+              text: 'Scan',
               textColor: Colors.white,
               fillColor: deepGreen,
               shadowBlurRadius: 0,
-              onPressed: (){},
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>QRViewExample()));
+              },
           )
         ],
-      ),
-      bottomNavigationBar: CustomBottomNavBar(
-        icon1: const Icon(Icons.history),
-        icon2: const Icon(Icons.qr_code_scanner_outlined),
-        icon3: const Icon(Icons.person),
-        label1: 'History',
-        label2: 'Scan',
-        label3: 'Profile',
-        selectedItemColor: coffeeBrown,
-        unselectedItemColor: Colors.black,
       ),
     );
   }

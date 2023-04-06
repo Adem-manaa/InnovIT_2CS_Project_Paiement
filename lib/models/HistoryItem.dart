@@ -5,6 +5,7 @@ class HistoryItem {
   double price;
   String drinkName;
   String drinkImage;
+  bool isReported;
 
   HistoryItem({
     required this.date,
@@ -13,5 +14,6 @@ class HistoryItem {
     required this.price,
     required this.location,
     required this.drinkImage,
+    required this.isReported,
   });
 }

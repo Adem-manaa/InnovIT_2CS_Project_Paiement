@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:innovit_2cs_project_paiement/models/HistoryItem.dart';
+import 'package:innovit_2cs_project_paiement/screens/HistoryDetailsPage.dart';
 import 'package:innovit_2cs_project_paiement/utilities/constants.dart';
-import 'package:innovit_2cs_project_paiement/widgets/CustomBottomNavBar.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedColoredButton.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedTextField.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+
+import 'ReportPage.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -21,9 +23,9 @@ class HistoryPage extends StatefulWidget {
 List<HistoryItem> historyItems = [];
 List<HistoryItem> loadData(){
   return [
-    HistoryItem(date: "04 march 2023", time: "08:00 AM", drinkName: "Long Coffee", price: 40, location: "ENP, Alger",drinkImage: 'drinkLongCoffee'),
-    HistoryItem(date: "05 april 2023", time: "10:00 AM", drinkName: "Creme", price: 35, location: "ENP, Constantine",drinkImage: 'drinkCreme'),
-    HistoryItem(date: "06 may 2023", time: "09:00 AM", drinkName: "Cappuccino", price: 55, location: "ENP, Oran",drinkImage: 'drinkCappuccino'),
+    HistoryItem(date: "04 march 2023", time: "08:00 AM", drinkName: "Long Coffee", price: 40, location: "ENP, Alger",drinkImage: 'drinkLongCoffee',isReported: false),
+    HistoryItem(date: "05 april 2023", time: "10:00 AM", drinkName: "Creme", price: 35, location: "ENP, Constantine",drinkImage: 'drinkCreme', isReported: true),
+    HistoryItem(date: "06 may 2023", time: "09:00 AM", drinkName: "Cappuccino", price: 55, location: "ENP, Oran",drinkImage: 'drinkCappuccino', isReported : false),
   ];
 }
 String? selectedValue;
@@ -57,7 +59,9 @@ class _HistoryPageState extends State<HistoryPage> {
                     hintText: 'Search here',
                     hintTextSize: 14,
                     borderColor: const Color(0xff9BAEBC).withOpacity(0.8),
-                    selectedBorderColor: coffeeBrown),
+                    selectedBorderColor: coffeeBrown,
+                  //todo : implement search
+                ),
               ),
               Container(
                 width: 160,
@@ -244,16 +248,22 @@ class _HistoryPageState extends State<HistoryPage> {
                                 textColor: Colors.black,
                                 fillColor: const Color(0xffFBFBFB),
                                 shadowBlurRadius: 0,
-                                onPressed: () {}),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryDetailsPage()));
+                                }),
                             RoundedColoredButton(
                                 width: 160,
                                 height: 34,
-                                text: 'Report',
+                                text: historyItems[index].isReported? 'Reported' : 'Report',
                                 textSize: 15,
-                                textColor: Colors.white,
-                                fillColor: const Color(0xffEB001B),
+                                textColor: historyItems[index].isReported? Colors.grey : Colors.white,
+                                fillColor: historyItems[index].isReported? Color(0xffFBFBFB): Color(0xffEB001B),
                                 shadowBlurRadius: 0,
-                                onPressed: () {})
+                                onPressed: () {
+                                  if (!historyItems[index].isReported){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ReportPage()));
+                                  }
+                                }),
                           ],
                         ),
                       ],
@@ -269,16 +279,6 @@ class _HistoryPageState extends State<HistoryPage> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: CustomBottomNavBar(
-        icon1: const Icon(Icons.history),
-        icon2: const Icon(Icons.qr_code_scanner_outlined),
-        icon3: const Icon(Icons.person),
-        label1: 'History',
-        label2: 'Scan',
-        label3: 'Profile',
-        selectedItemColor: coffeeBrown,
-        unselectedItemColor: Colors.black,
       ),
     );
   }

@@ -24,7 +24,9 @@ class SimpleAppBar extends StatelessWidget with PreferredSizeWidget{
             Icons.arrow_back_ios_new,
           color: Colors.black,
         ),
-        onPressed: () {  },
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
     );
   }
