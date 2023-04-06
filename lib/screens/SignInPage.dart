@@ -4,6 +4,12 @@ import 'package:innovit_2cs_project_paiement/screens/SignUpPage.dart';
 import 'package:innovit_2cs_project_paiement/utilities/constants.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedColoredButton.dart';
 import '../widgets/RoundedTextFormField.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+final googleSignIn = GoogleSignIn(
+  scopes: ['email'],
+  clientId: "1079654231599-pv5lmhes7u4n53at72ef9tl6itiadm3j.apps.googleusercontent.com",
+  );
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -183,9 +189,11 @@ class _SignInPageState extends State<SignInPage> {
                 ],
               ),
               GestureDetector(
-                onTap: (){
-                  //todo : implement sign in with google
-                },
+                onTap: () async {
+                  print("google sign in");
+                  final user = await googleSignIn.signIn();
+                  print(user);
+                },    
                 child: Container(
                   width: 350,
                   height: 50,

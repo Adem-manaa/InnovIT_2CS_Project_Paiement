@@ -60,9 +60,9 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
             child: Container(
-              height: 400,
+              height: MediaQuery.of(context).size.height*0.55,
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return Column(
