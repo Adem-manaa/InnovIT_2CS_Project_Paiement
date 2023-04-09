@@ -1,5 +1,8 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:innovit_2cs_project_paiement/screens/MainPage.dart';
 import 'package:innovit_2cs_project_paiement/screens/SignInPage.dart';
+import 'package:innovit_2cs_project_paiement/utilities/constants.dart';
 
 
 void main() {
@@ -18,7 +21,28 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Outfit'
       ),
-      home:  SignInPage(),
+      home:  AnimatedSplashScreen(
+        splash: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              child: Image.asset('assets/images/app_logo.png'),
+            ),
+            const Text(
+              'SmartBev',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+                color: coffeeBrown,
+              ),
+            ),
+          ],
+        ),
+        nextScreen: const MainPage(),
+        backgroundColor: const Color.fromARGB(255, 242, 235, 227),
+        splashTransition: SplashTransition.fadeTransition,
+        duration: 3000,
+      ),
       //todo: make home different if user is already signed in
     );
   }
