@@ -39,11 +39,32 @@ dependencies:
   flutter_svg: ^2.0.4
   qr_code_scanner: ^1.0.1
   google_sign_in: ^6.0.2
-  googleapis_auth: ^1.4.0
+  http: ^0.13.5
+  animated_splash_screen: ^1.3.0
+  flutter_native_splash: ^2.2.19
+  quickalert: ^1.0.1
+  provider: ^6.0.5
+  shared_preferences: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: 'assets/images/app_logo.png'
+
+flutter_native_splash:
+  color: "#fff2eb"
+  image: assets/images/logo_title.png
+  android: true
+  ios: true
+  image_resize: contain
+  android_12:
+    image: assets/images/logo_title.png
+    icon_background_color: "#fff2eb"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

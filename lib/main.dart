@@ -1,82 +1,60 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:innovit_2cs_project_paiement/screens/HistoryPage.dart';
+import 'package:innovit_2cs_project_paiement/provider/user_provider.dart';
 import 'package:innovit_2cs_project_paiement/screens/MainPage.dart';
 import 'package:innovit_2cs_project_paiement/screens/PaymentMethodsPage.dart';
-import 'package:innovit_2cs_project_paiement/screens/ProfilePage.dart';
-import 'package:innovit_2cs_project_paiement/screens/ReportPage.dart';
-import 'package:innovit_2cs_project_paiement/screens/ScanPage.dart';
+import 'package:innovit_2cs_project_paiement/screens/QRScannerPage.dart';
 import 'package:innovit_2cs_project_paiement/screens/SignInPage.dart';
-import 'package:innovit_2cs_project_paiement/widgets/appBar.dart';
+import 'package:innovit_2cs_project_paiement/utilities/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Outfit'
-      ),
-      home: MainPage(),
-    );
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isLoggedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoggedIn();
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
+  void checkLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool loggedIn = prefs.getBool('loggedIn') ?? false;
     setState(() {
-      _counter++;
+      isLoggedIn = loggedIn;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomizedAppBar(
-        title: 'InnovIT',
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SvgPicture.asset(
-              '../assets/logo/logo.svg',
-            ),
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        // add more providers here if needed
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Outfit'
         ),
+        home: isLoggedIn ? MainPage() : SignInPage()
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

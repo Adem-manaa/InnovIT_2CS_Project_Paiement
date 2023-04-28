@@ -1,19 +1,40 @@
 class HistoryItem {
-  String date;
-  String time;
-  String location;
-  double price;
-  String drinkName;
-  String drinkImage;
-  bool isReported;
+  int? id;
+  String? name;
+  String? image;
+  String? recette;
+  String? price;
+  bool? isReported;
 
   HistoryItem({
-    required this.date,
-    required this.time,
-    required this.drinkName,
-    required this.price,
-    required this.location,
-    required this.drinkImage,
-    required this.isReported,
+    this.id,
+    this.name,
+    this.image,
+    this.recette,
+    this.price,
+    this.isReported
   });
+
+  fromJson(Map<String,dynamic> json) {
+    id = json["id"];
+    name = json["name"];
+    image = json["image"];
+    recette = json["recette"];
+    price = json["price"];
+    isReported = json["isReported"];
+    return this;
+  }
+
+  Map<String,dynamic> toJson() {
+    final Map<String,dynamic> data = new Map<String,dynamic>();
+    data["id"] = this.id;
+    data["name"] = this.name;
+    data["image"] = this.image;
+    data["recette"] = this.recette;
+    data["price"] = this.price;
+    data["isReported"] = this.isReported;
+
+    return data;
+  }
+  
 }

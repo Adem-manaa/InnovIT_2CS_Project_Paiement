@@ -24,12 +24,12 @@ class ScanPage extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w500,
-              fontSize: 30,
+              fontSize: 24,
               color: Colors.black,
             ),
           ),
           RoundedColoredButton(
-              width: 260,
+              width: 240,
               height: 50,
               text: 'Scan',
               textColor: Colors.white,

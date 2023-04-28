@@ -3,13 +3,18 @@ import 'package:innovit_2cs_project_paiement/screens/MainPage.dart';
 import 'package:innovit_2cs_project_paiement/screens/SignUpPage.dart';
 import 'package:innovit_2cs_project_paiement/utilities/constants.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedColoredButton.dart';
+import '../provider/user_provider.dart';
 import '../widgets/RoundedTextFormField.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-final googleSignIn = GoogleSignIn(
+
+final GoogleSignIn googleSignIn = GoogleSignIn(
   scopes: ['email'],
-  clientId: "1079654231599-pv5lmhes7u4n53at72ef9tl6itiadm3j.apps.googleusercontent.com",
   );
+
+
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -21,14 +26,32 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final formKey = GlobalKey<FormState>();
 
+  GoogleSignInAccount? currentUser;
   late String email, password;
 
    bool rememberMe = false;
 
+   @override
+   void initState(){
+    googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        currentUser = account;
+      });
+    });
+    googleSignIn.signInSilently();
+    super.initState();
+   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      body: buildWidget(),
+    );
+  }
+
+  Widget buildWidget() {
+    GoogleSignInAccount? user = currentUser;
+      return Padding(
         padding: const EdgeInsets.all(15),
         child: Form(
           key: formKey,
@@ -189,10 +212,9 @@ class _SignInPageState extends State<SignInPage> {
                 ],
               ),
               GestureDetector(
-                onTap: ()async {
+                onTap: () {
                   print("google sign in");
-                  final user = await googleSignIn.signIn();
-                  print(user);
+                  logIn();
                 },
                 child: Container(
                   width: 350,
@@ -203,10 +225,8 @@ class _SignInPageState extends State<SignInPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.g_mobiledata_rounded,
-                        size: 40,
-                      ),
+                      Image.asset('assets/images/google.png', width: 38, height: 38,),
+                      SizedBox(width: 8,),
                       Text(
                         'Login with google',
                         style: TextStyle(
@@ -246,8 +266,25 @@ class _SignInPageState extends State<SignInPage> {
             ],
           ),
         ),
-      ),
-    );
+      );
+
+
+  }
+
+  Future<void> logIn() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final googleSignIn = GoogleSignIn();
+    final user = await googleSignIn.signIn();
+    if (user != null) {
+      userProvider.setUser(user);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('loggedIn', true);
+      await prefs.setString('email', user.email);
+      await prefs.setString('name', user.displayName ?? '');
+      await prefs.setString('photoUrl', user.photoUrl ?? '');
+    }
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainPage()));
+    print(user?.displayName);
   }
 
   bool signIn(String email, String password, bool rememberMe){
@@ -258,3 +295,7 @@ class _SignInPageState extends State<SignInPage> {
     return false;
   }
 }
+
+
+
+

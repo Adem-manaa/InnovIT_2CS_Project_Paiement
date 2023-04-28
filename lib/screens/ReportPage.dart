@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:innovit_2cs_project_paiement/models/report.dart';
+import 'package:innovit_2cs_project_paiement/providers/report.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedColoredButton.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedTextField.dart';
 import 'package:innovit_2cs_project_paiement/widgets/SimpleAppbar.dart';
 
 import '../utilities/constants.dart';
+import '../widgets/RoundedTextFormField.dart';
 
-class ReportPage extends StatelessWidget {
-  const ReportPage({Key? key}) : super(key: key);
+class ReportPage extends StatefulWidget {
+  final int? variable;
+  const ReportPage({super.key, this.variable});
+
+  @override
+  State<ReportPage> createState() => _ReportPageState();
+}
+
+class _ReportPageState extends State<ReportPage> {
+  final formKey = GlobalKey<FormState>();
+  late String? message;
+  final reportController ReportController = new reportController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +52,24 @@ class ReportPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 25,),
-                RoundedTextField(
-                    maxLines: null,
-                    minLines: 15,
-                    hintText: 'Describe your problem',
-                    hintTextSize: 20,
-                    borderColor: Color(0xff251201).withOpacity(0.2),
-                    selectedBorderColor: coffeeBeige),
+                Form(
+                  key: formKey,
+                  child: RoundedTextFormField(
+                      hintText: 'Describe your problem',
+                      hintTextSize: 20,
+                      borderColor: Color(0xff251201).withOpacity(0.2),
+                      selectedBorderColor: coffeeBeige,
+                      validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          onSaved: (String? value){
+                            message = value!;
+                          },
+                      ),
+                ),
               ],
             ),
             RoundedColoredButton(
@@ -56,7 +80,11 @@ class ReportPage extends StatelessWidget {
                 fillColor: Color(0xffEB001B),
                 shadowBlurRadius: 1,
                 onPressed: (){
-                  //todo : implement reporting
+                  if (formKey.currentState!.validate()){
+                    formKey.currentState!.save();
+                    Report report = Report(idFacture: widget.variable, message: message); 
+                    ReportController.sendReport(report);
+                  }
                 }),
             const Text(
               'All rights reserved © InnovIt 2023',

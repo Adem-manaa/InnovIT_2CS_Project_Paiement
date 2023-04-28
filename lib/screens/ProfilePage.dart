@@ -1,11 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:innovit_2cs_project_paiement/screens/SignInPage.dart';
 import 'package:innovit_2cs_project_paiement/utilities/constants.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedColoredButton.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../provider/user_provider.dart';
 
-class ProfilePage extends StatelessWidget {
-  //todo : make page dynamic
-  const ProfilePage({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+
+  String? name = '';
+  String? email = '';
+  String? url = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
+
+  void getUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? nom = prefs.getString('name');
+    String? mail = prefs.getString('email');
+    String? uri = prefs.getString('photoUrl');
+    setState(() {
+      name = nom;
+      email = mail;
+      url = uri;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +46,23 @@ class ProfilePage extends StatelessWidget {
         children: [
           Column(
             children: [
-              Icon(
-                Icons.person_outline,
-                size: 80,
-              ),
+            Icon(
+              Icons.person_outline,
+              size: 80,
+            ),
+            //   CircleAvatar(
+            //   radius: 50,
+            //   backgroundImage: NetworkImage(url!),
+            // ),
               Text(
-                'Kamyl Taibi',
+                name ?? '',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 25,
                 ),
               ),
               Text(
-                'jk_taibi@esi.dz',
+                email ?? '',
                 style: TextStyle(
                   fontSize: 17,
                   color: Color(0xff9BAEBC),
@@ -140,7 +175,7 @@ class ProfilePage extends StatelessWidget {
             ],
           ),
           RoundedColoredButton(
-              width: 350,
+              width: 240,
               height: 50,
               text: 'logout',
               textColor: Colors.white,
@@ -148,6 +183,7 @@ class ProfilePage extends StatelessWidget {
               shadowBlurRadius: 1,
               onPressed: (){
                 //todo :
+                logout();
                 NavigatorState navigatorState = Navigator.of(context);
                 while (navigatorState.canPop()) {
                   navigatorState.pop();
@@ -164,4 +200,11 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> logout() async {
+  final googleSignIn = GoogleSignIn();
+  await googleSignIn.disconnect();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setBool('loggedIn', false);
 }
