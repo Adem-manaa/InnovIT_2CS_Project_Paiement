@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/PaymentMethod.dart';
 import '../provider/user_provider.dart';
-import '../providers/paymentMethod.dart';
+import '../controllers/paymentMethod.dart';
 import '../widgets/RoundedTextFormField.dart';
 import '../widgets/SimpleAppbar.dart';
 import 'package:http/http.dart' as http;
@@ -33,7 +33,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
   String ccv = '';
   final formKey = GlobalKey<FormState>();
   final myController = TextEditingController();
-  final paymentMethoodProvider paymentMethodProvider = paymentMethoodProvider();
+  final paymentMethoodController PaymentMethoodController = paymentMethoodController();
  
   @override
   void initState() {
@@ -61,7 +61,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
               child: FutureBuilder(
-                future: paymentMethodProvider.getPayments(),
+                future: PaymentMethoodController.getPayments(),
                 builder: (context,AsyncSnapshot<List<PaymentMethod>> snapshot){
                   if( snapshot.hasData){
                     return ListView.builder(
@@ -194,7 +194,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                 );
                 paymentData.ccv = ccv;
                 PaymentMethod pay = PaymentMethod(cartePaiment: paymentData.cartePaiment, ccv: paymentData.ccv, expiryDate: paymentData.expiryDate); 
-                paymentMethodProvider.pay(pay,code!,context); 
+                PaymentMethoodController.pay(pay,code!,context); 
               },
               shadowBlurRadius: 0,
             ),
@@ -318,7 +318,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                             String? email = prefs.getString('email');
                             formKey.currentState!.save();
                             PaymentMethod newMethod = PaymentMethod(mail:email, cartePaiment: cardNumber, ccv: ccv, expiryDate: date);
-                            paymentMethodProvider.addMethod(newMethod, context);      
+                            PaymentMethoodController.addMethod(newMethod, context);      
                           }
                         }
                     ),
