@@ -6,7 +6,7 @@ class PaymentMethod {
   String? cartePaiment;
   String? ccv;
   String? expiryDate;
-
+  bool isSelected;
 
   PaymentMethod({
     this.id,
@@ -14,6 +14,7 @@ class PaymentMethod {
     this.cartePaiment,
     this.ccv,
     this.expiryDate,
+    this.isSelected = false,
   });
 
   fromJson(Map<String,dynamic> json) {

@@ -6,6 +6,7 @@ import 'package:innovit_2cs_project_paiement/widgets/RoundedColoredButton.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../provider/user_provider.dart';
+import 'PaymentMethodsPage.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -98,7 +99,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 color: const Color(0xff9BAEBC).withOpacity(0.5),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentMethodsPage()));
+                },
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(const EdgeInsets.only(left: 50)),
                   foregroundColor: MaterialStateProperty.all(Colors.black),

@@ -71,7 +71,6 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                       itemBuilder: (context, index) {
                         PaymentMethod paymentMethod = snapshot.data![index];
                         return Container(
-                          height: MediaQuery.of(context).size.height*0.4,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -79,7 +78,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                               Row(
                                 children: [
                                   GestureDetector(
-                                    onTap: () {
+                                    onTap: () {        
                                       paymentData = paymentMethod;
                                       enterCCV();
                                       setState(() {

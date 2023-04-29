@@ -26,7 +26,7 @@ class paymentMethoodController {
     var response = await http.get(uri, headers: headers);
     var jsonObj = json.decode(response.body);
     for( var i=0; i<jsonObj.length; i++){
-      ListPaymentMethods.add(paymentMethod.fromJson(jsonObj[i]));
+      ListPaymentMethods.add(new PaymentMethod(mail : jsonObj[i]['mail'],cartePaiment: jsonObj[i]['cartePaiment'], expiryDate: jsonObj[i]['expiryDate']));
     }
     return ListPaymentMethods;  
   }

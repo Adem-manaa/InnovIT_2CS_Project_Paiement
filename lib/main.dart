@@ -53,8 +53,20 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           fontFamily: 'Outfit'
         ),
-        home: isLoggedIn ? MainPage() : SignInPage()
+        home: isLoggedIn ? Home() : SignInPage()
       ),
     );
   }
+}
+
+Widget Home() {
+  return AnimatedSplashScreen(
+        splash: SizedBox(
+          child: Image.asset('assets/images/Logo_title (1) (1).png'),
+        ),
+        nextScreen: const MainPage(),
+        backgroundColor: const Color.fromARGB(255, 242, 235, 227),
+        splashTransition: SplashTransition.fadeTransition,
+        duration: 3000,
+      );
 }
