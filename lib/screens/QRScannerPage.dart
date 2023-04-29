@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import "package:qr_code_scanner/qr_code_scanner.dart";
 import '../utilities/constants.dart';
 import 'PaymentMethodsPage.dart';
-import '../providers/provider.dart';
 import 'package:http/http.dart' as http;
 
 

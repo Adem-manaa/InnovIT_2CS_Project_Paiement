@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:innovit_2cs_project_paiement/models/report.dart';
-import 'package:innovit_2cs_project_paiement/providers/report.dart';
+import 'package:innovit_2cs_project_paiement/controllers/report.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedColoredButton.dart';
 import 'package:innovit_2cs_project_paiement/widgets/RoundedTextField.dart';
 import 'package:innovit_2cs_project_paiement/widgets/SimpleAppbar.dart';
