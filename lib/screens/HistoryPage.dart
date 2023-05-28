@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:innovit_2cs_project_paiement/controllers/HistoryItem.dart';
 import 'package:innovit_2cs_project_paiement/models/HistoryItem.dart';
 import 'package:innovit_2cs_project_paiement/screens/HistoryDetailsPage.dart';
 import 'package:innovit_2cs_project_paiement/utilities/constants.dart';
@@ -24,31 +26,15 @@ class HistoryPage extends StatefulWidget {
     'Drink',
     'Price'
   ];
-  getPayments() async{
-    final queryParameters = {
-      'mail': 'ja_manaa@esi.dz',
-    };
-    final uri = Uri.http('innovit-payment.onrender.com', '/paiement/commands', queryParameters);
-    final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-    final response = await http.get(uri, headers: headers);
-    if( response.statusCode == 200){
-      var jsonObj = json.decode(response.body);
-      return jsonObj;
-    }
-  }
-// List<HistoryItem> historyItems = [];
-// List<HistoryItem> loadData(){
-//   return [
-//     HistoryItem(date: "04 march 2023", time: "08:00 AM", drinkName: "Long Coffee", price: 40, location: "ENP, Alger",drinkImage: 'drinkLongCoffee',isReported: false),
-//     HistoryItem(date: "05 april 2023", time: "10:00 AM", drinkName: "Creme", price: 35, location: "ENP, Constantine",drinkImage: 'drinkCreme', isReported: true),
-//     HistoryItem(date: "06 may 2023", time: "09:00 AM", drinkName: "Cappuccino", price: 55, location: "ENP, Oran",drinkImage: 'drinkCappuccino', isReported : false),
-//   ];
-// }
-String? selectedValue;
+  
+  final HistoryItemController historyItemController = HistoryItemController();
+  String? selectedValue;
+  List<HistoryItem> historyItems = []; 
 class _HistoryPageState extends State<HistoryPage> {
   @override
-  void initState() {
+  void initState() async{
     super.initState();
+    historyItems = await historyItemController.getCommands();
   }
   @override
   Widget build(BuildContext context) {
@@ -118,16 +104,13 @@ class _HistoryPageState extends State<HistoryPage> {
                             selectedValue = value as String;
                             switch(selectedValue){
                               case "Date" :
-                                // historyItems.sort((a,b) => a.date.compareTo(b.date));
-                                break;
-                              case "Time" :
-                                // historyItems.sort((a,b) => a.time.compareTo(b.time));
+                                historyItems.sort((a,b) => a.date!.compareTo(b.date!));
                                 break;
                               case "Drink" :
-                                // historyItems.sort((a,b) => a.drinkName.compareTo(b.drinkName));
+                                historyItems.sort((a,b) => a.name!.compareTo(b.name!));
                                 break;
                               case "Price" :
-                                // historyItems.sort((a,b) => a.price.compareTo(b.price));
+                                historyItems.sort((a,b) => a.price!.compareTo(b.price!));
                                 break;
                             }
                           }
@@ -188,129 +171,147 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
           Expanded(
             child: FutureBuilder(
-              future: ,
+              future: historyItemController.getCommands(),
               builder: (context,AsyncSnapshot<List<HistoryItem>> snapshot){
-
+                if(snapshot.hasData){
+                  return ListView.separated(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                      left: 10,
+                      right: 10,
+                    ),
+                    itemBuilder: (context, index) {
+                      HistoryItem historyItem = snapshot.data![index];
+                      return Container(
+                        width: 374,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          color: coffeeBeige.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.network(
+                                  historyItem.image ?? "assets/images/drinkCreme.png",
+                                  width: 140,
+                                  height: 140,
+                                ),
+                                SizedBox(
+                                  height: 110,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "${historyItem.date}  ",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                                color: deepGreen),
+                                          ),
+                                          Text(
+                                            "8:00 AM",
+                                            style: const TextStyle(
+                                                fontSize: 15, color: deepGreen),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "${historyItem.name}  ",
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                          Text(
+                                            "${historyItem.price}0 DA",
+                                            style: const TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        historyItem.localisation ?? "",
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                RoundedColoredButton(
+                                    width: 160,
+                                    height: 34,
+                                    text: 'Details',
+                                    textSize: 15,
+                                    textColor: Colors.black,
+                                    fillColor: const Color(0xffFBFBFB),
+                                    shadowBlurRadius: 0,
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryDetailsPage()));
+                                    }),
+                                RoundedColoredButton(
+                                    width: 160,
+                                    height: 34,
+                                    text: historyItem.isClaimed! ? 'Reported' : 'Report',
+                                    textSize: 15,
+                                    textColor: historyItem.isClaimed! ? Colors.grey : Colors.white,
+                                    fillColor: historyItem.isClaimed! ? Color(0xffFBFBFB): Color(0xffEB001B),
+                                    shadowBlurRadius: 0,
+                                    onPressed: () {
+                                      if (!historyItem.isClaimed!){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ReportPage()));
+                                      }
+                                    }),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        height: 5,
+                      );
+                    },
+                  );
+                }else if(snapshot.hasError){
+                    return Text('Error: ${snapshot.error}');
+                }else{
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height*0.16,
+                      ),
+                      CircularProgressIndicator(
+                        color: deepGreen,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height*0.16,
+                      ),
+                    ],
+                  );
+                }
               }
               )
           )
-          // Expanded(
-          //   child: ListView.separated(
-          //       padding: const EdgeInsets.only(
-          //         top: 20,
-          //         left: 10,
-          //         right: 10,
-          //       ),
-          //       itemBuilder: (context, index) {
-          //         return Container(
-          //           width: 374,
-          //           height: 200,
-          //           decoration: BoxDecoration(
-          //             color: coffeeBeige.withOpacity(0.2),
-          //             borderRadius: BorderRadius.circular(20),
-          //           ),
-          //           child: Column(
-          //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //             children: [
-          //               Row(
-          //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //                 children: [
-          //                   Image.asset(
-          //                     "assets/images/${historyItems[index].drinkImage}.png",
-          //                     width: 140,
-          //                     height: 140,
-          //                   ),
-          //                   SizedBox(
-          //                     height: 110,
-          //                     child: Column(
-          //                       mainAxisAlignment:
-          //                           MainAxisAlignment.spaceAround,
-          //                       crossAxisAlignment: CrossAxisAlignment.start,
-          //                       children: [
-          //                         Row(
-          //                           children: [
-          //                             Text(
-          //                               "${historyItems[index].date}  ",
-          //                               style: const TextStyle(
-          //                                   fontWeight: FontWeight.bold,
-          //                                   fontSize: 20,
-          //                                   color: deepGreen),
-          //                             ),
-          //                             Text(
-          //                               historyItems[index].time,
-          //                               style: const TextStyle(
-          //                                   fontSize: 15, color: deepGreen),
-          //                             ),
-          //                           ],
-          //                         ),
-          //                         Row(
-          //                           children: [
-          //                             Text(
-          //                               "${historyItems[index].drinkName}  ",
-          //                               style: const TextStyle(
-          //                                 fontSize: 20,
-          //                               ),
-          //                             ),
-          //                             Text(
-          //                               "${historyItems[index].price}0 DA",
-          //                               style: const TextStyle(
-          //                                 fontSize: 15,
-          //                               ),
-          //                             ),
-          //                           ],
-          //                         ),
-          //                         Text(
-          //                           historyItems[index].location,
-          //                           style: const TextStyle(
-          //                             fontSize: 20,
-          //                           ),
-          //                         ),
-          //                       ],
-          //                     ),
-          //                   ),
-          //                 ],
-          //               ),
-          //               Row(
-          //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //                 children: [
-          //                   RoundedColoredButton(
-          //                       width: 160,
-          //                       height: 34,
-          //                       text: 'Details',
-          //                       textSize: 15,
-          //                       textColor: Colors.black,
-          //                       fillColor: const Color(0xffFBFBFB),
-          //                       shadowBlurRadius: 0,
-          //                       onPressed: () {
-          //                         Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryDetailsPage()));
-          //                       }),
-          //                   RoundedColoredButton(
-          //                       width: 160,
-          //                       height: 34,
-          //                       text: historyItems[index].isReported? 'Reported' : 'Report',
-          //                       textSize: 15,
-          //                       textColor: historyItems[index].isReported? Colors.grey : Colors.white,
-          //                       fillColor: historyItems[index].isReported? Color(0xffFBFBFB): Color(0xffEB001B),
-          //                       shadowBlurRadius: 0,
-          //                       onPressed: () {
-          //                         if (!historyItems[index].isReported){
-          //                           Navigator.push(context, MaterialPageRoute(builder: (context)=>ReportPage(variable: scanData.code)));
-          //                         }
-          //                       }),
-          //                 ],
-          //               ),
-          //             ],
-          //           ),
-          //         );
-          //       },
-          //       separatorBuilder: (context, index) {
-          //         return const SizedBox(
-          //           height: 5,
-          //         );
-          //       },
-          //       itemCount: historyItems.length
-          //   ),
-          // ),
         ],
       ),
     );
