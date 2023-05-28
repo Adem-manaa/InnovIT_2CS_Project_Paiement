@@ -28,7 +28,6 @@ class PaymentMethodsPage extends StatefulWidget {
 
 class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
   late PaymentMethod paymentData = new PaymentMethod();
-  bool _isTapped = false;
   late String owner, cardNumber, date;
   String ccv = '';
   final formKey = GlobalKey<FormState>();
@@ -82,7 +81,7 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                                       paymentData = paymentMethod;
                                       enterCCV();
                                       setState(() {
-                                        _isTapped = !_isTapped;
+                                        paymentMethod.isSelected = !paymentMethod.isSelected;
                                       });
                                     },
                                     child: Container(
@@ -90,8 +89,8 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                                       width: MediaQuery.of(context).size.width*0.91,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                        color: _isTapped ? deepGreen : Colors.white,
-                                        width: _isTapped ? 2.0 : 0.0,
+                                        color: paymentMethod.isSelected ? deepGreen : Colors.white,
+                                        width: paymentMethod.isSelected ? 2.0 : 0.0,
                                       ),
                                           color: Colors.white,
                                           borderRadius: BorderRadius.circular(20),

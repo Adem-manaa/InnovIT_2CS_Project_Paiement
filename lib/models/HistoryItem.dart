@@ -3,16 +3,28 @@ class HistoryItem {
   String? name;
   String? image;
   String? recette;
+  String? ingredient;
   String? price;
-  bool? isReported;
+  String? userMail;
+  String? cardNumber;
+  String? ccv;
+  bool? isClaimed;
+  String? date;
+  String? localisation;
 
   HistoryItem({
     this.id,
     this.name,
     this.image,
     this.recette,
+    this.ingredient,
     this.price,
-    this.isReported
+    this.userMail,
+    this.cardNumber,
+    this.ccv,
+    this.isClaimed,
+    this.date,
+    this.localisation
   });
 
   fromJson(Map<String,dynamic> json) {
@@ -20,8 +32,14 @@ class HistoryItem {
     name = json["name"];
     image = json["image"];
     recette = json["recette"];
+    ingredient = json["ingredient"];
     price = json["price"];
-    isReported = json["isReported"];
+    userMail = json["userMail"];
+    cardNumber = json["cardNumber"];
+    ccv = json["ccv"];
+    isClaimed = json["isClaimed"];
+    date = json["date"];
+    localisation = json["localisation"];
     return this;
   }
 
@@ -31,8 +49,14 @@ class HistoryItem {
     data["name"] = this.name;
     data["image"] = this.image;
     data["recette"] = this.recette;
+    data["ingredient"] = this.ingredient;
     data["price"] = this.price;
-    data["isReported"] = this.isReported;
+    data["userMail"] = this.userMail;
+    data["cardNumber"] = this.cardNumber;
+    data["ccv"] = this.ccv;
+    data["isClaimed"] = this.isClaimed;
+    data["date"] = this.date;
+    data["localisation"] = this.localisation;
 
     return data;
   }

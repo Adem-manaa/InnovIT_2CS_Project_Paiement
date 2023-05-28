@@ -169,20 +169,20 @@ class _SignInPageState extends State<SignInPage> {
                   fillColor: coffeeBrown.withOpacity(0.7),
                   shadowBlurRadius: 7,
                   onPressed: () {
-                    FocusManager.instance.primaryFocus?.unfocus();
-                    if (formKey.currentState!.validate()){
-                      formKey.currentState!.save();
-                      if (signIn(email,password,rememberMe)){
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const MainPage()));
-                      }else{
-                        const snackBar = SnackBar(
-                          content: Text(
-                            'Invalid credentials',
-                          ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      }
-                    }
+                    // FocusManager.instance.primaryFocus?.unfocus();
+                    // if (formKey.currentState!.validate()){
+                    //   formKey.currentState!.save();
+                    //   if (signIn(email,password,rememberMe)){
+                    //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const MainPage()));
+                    //   }else{
+                    //     const snackBar = SnackBar(
+                    //       content: Text(
+                    //         'Invalid credentials',
+                    //       ),
+                    //     );
+                    //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    //   }
+                    // }
                   }),
               Row(
                 children: [
@@ -213,7 +213,6 @@ class _SignInPageState extends State<SignInPage> {
               ),
               GestureDetector(
                 onTap: () {
-                  print("google sign in");
                   logIn();
                 },
                 child: Container(
@@ -272,11 +271,9 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Future<void> logIn() async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
     final googleSignIn = GoogleSignIn();
     final user = await googleSignIn.signIn();
     if (user != null) {
-      userProvider.setUser(user);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('loggedIn', true);
       await prefs.setString('email', user.email);
@@ -284,16 +281,8 @@ class _SignInPageState extends State<SignInPage> {
       await prefs.setString('photoUrl', user.photoUrl ?? '');
     }
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainPage()));
-    print(user?.displayName);
   }
 
-  bool signIn(String email, String password, bool rememberMe){
-    //todo : implement sign in from db
-    if (email == "islam" && password == "105") {
-      return true;
-    }
-    return false;
-  }
 }
 
 

@@ -9,6 +9,7 @@ import 'package:quickalert/quickalert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class paymentMethoodController {
+  
 
   String api = 'innovit-payment.onrender.com';
 
