@@ -186,6 +186,14 @@ class _HistoryPageState extends State<HistoryPage> {
               ],
             ),
           ),
+          Expanded(
+            child: FutureBuilder(
+              future: ,
+              builder: (context,AsyncSnapshot<List<HistoryItem>> snapshot){
+
+              }
+              )
+          )
           // Expanded(
           //   child: ListView.separated(
           //       padding: const EdgeInsets.only(
