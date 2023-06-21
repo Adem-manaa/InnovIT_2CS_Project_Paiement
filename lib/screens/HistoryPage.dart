@@ -32,10 +32,13 @@ class HistoryPage extends StatefulWidget {
   List<HistoryItem> historyItems = []; 
 class _HistoryPageState extends State<HistoryPage> {
   @override
-  void initState() async{
+  void initState() {
     super.initState();
-    historyItems = await historyItemController.getCommands();
+    Future.delayed(Duration.zero, () async {
+      historyItems = await historyItemController.getCommands();
+    });
   }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,23 +156,6 @@ class _HistoryPageState extends State<HistoryPage> {
             ],
           ),
           Expanded(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height*0.3,
-                ),
-                Text(
-                  "History page",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          Expanded(
             child: FutureBuilder(
               future: historyItemController.getCommands(),
               builder: (context,AsyncSnapshot<List<HistoryItem>> snapshot){
@@ -196,33 +182,34 @@ class _HistoryPageState extends State<HistoryPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
+                                SizedBox(width: 8,),
                                 Image.network(
                                   historyItem.image ?? "assets/images/drinkCreme.png",
                                   width: 140,
                                   height: 140,
                                 ),
+                                SizedBox(width: 24,),
                                 SizedBox(
                                   height: 110,
                                   child: Column(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceAround,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
                                           Text(
-                                            "${historyItem.date}  ",
+                                            "${historyItem.date} ",
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 20,
+                                                fontSize: 18,
                                                 color: deepGreen),
                                           ),
                                           Text(
-                                            "8:00 AM",
+                                            "",
                                             style: const TextStyle(
-                                                fontSize: 15, color: deepGreen),
+                                                fontSize: 13, color: deepGreen),
                                           ),
                                         ],
                                       ),
@@ -231,13 +218,13 @@ class _HistoryPageState extends State<HistoryPage> {
                                           Text(
                                             "${historyItem.name}  ",
                                             style: const TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 18,
                                             ),
                                           ),
                                           Text(
                                             "${historyItem.price}0 DA",
                                             style: const TextStyle(
-                                              fontSize: 15,
+                                              fontSize: 13,
                                             ),
                                           ),
                                         ],
@@ -245,7 +232,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                       Text(
                                         historyItem.localisation ?? "",
                                         style: const TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                         ),
                                       ),
                                     ],
@@ -265,7 +252,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                     fillColor: const Color(0xffFBFBFB),
                                     shadowBlurRadius: 0,
                                     onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryDetailsPage()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HistoryDetailsPage(historyItem: historyItem)));
                                     }),
                                 RoundedColoredButton(
                                     width: 160,
@@ -277,7 +264,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                     shadowBlurRadius: 0,
                                     onPressed: () {
                                       if (!historyItem.isClaimed!){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ReportPage()));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ReportPage(historyItem: historyItem,)));
                                       }
                                     }),
                               ],

@@ -8,8 +8,14 @@ import 'package:provider/provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_credit_card/flutter_credit_card.dart';
 import '../models/PaymentMethod.dart';
+import 'package:flutter_credit_card/credit_card_brand.dart';
+import 'package:flutter_credit_card/credit_card_form.dart';
+import 'package:flutter_credit_card/credit_card_model.dart';
+import 'package:flutter_credit_card/credit_card_widget.dart';
+import 'package:flutter_credit_card/custom_card_type_icon.dart';
+import 'package:flutter_credit_card/glassmorphism_config.dart';
 import '../provider/user_provider.dart';
 import '../controllers/paymentMethod.dart';
 import '../widgets/RoundedTextFormField.dart';
@@ -29,6 +35,9 @@ class PaymentMethodsPage extends StatefulWidget {
 class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
   late PaymentMethod paymentData = new PaymentMethod();
   late String owner, cardNumber, date;
+  bool useGlassMorphism = false;
+  bool isCvvFocused = false;
+  bool useBackgroundImage = false;
   String ccv = '';
   final formKey = GlobalKey<FormState>();
   final myController = TextEditingController();
@@ -84,6 +93,41 @@ class _PaymentMethodsPageState extends State<PaymentMethodsPage> {
                                         paymentMethod.isSelected = !paymentMethod.isSelected;
                                       });
                                     },
+                                    // child: CreditCardWidget(
+                                    //   width: MediaQuery.of(context).size.width*0.91,
+                                    //   glassmorphismConfig:
+                                    //       useGlassMorphism ? Glassmorphism.defaultConfig() : null,
+                                    //   cardNumber: '${paymentMethod.cartePaiment}',
+                                    //   expiryDate: paymentMethod.expiryDate ?? '',
+                                    //   cardHolderName: paymentMethod.mail ?? '',
+                                    //   cvvCode: '',
+                                    //   bankName: 'Axis Bank',
+                                    //   frontCardBorder:
+                                    //       !useGlassMorphism ? Border.all(color: Colors.grey) : null,
+                                    //   backCardBorder:
+                                    //       !useGlassMorphism ? Border.all(color: Colors.grey) : null,
+                                    //   showBackView: isCvvFocused,
+                                    //   obscureCardNumber: true,
+                                    //   obscureCardCvv: true,
+                                    //   isHolderNameVisible: true,
+                                    //   cardBgColor: coffeeBrown,
+                                    //   backgroundImage:
+                                    //       useBackgroundImage ? 'assets/images/card_bg.png' : null,
+                                    //   isSwipeGestureEnabled: true,
+                                    //   onCreditCardWidgetChange:
+                                    //       (CreditCardBrand creditCardBrand) {},
+                                    //   customCardTypeIcons: <CustomCardTypeIcon>[
+                                    //     CustomCardTypeIcon(
+                                    //       cardType: CardType.mastercard,
+                                    //       cardImage: Image.asset(
+                                    //         'assets/images/mastercard.png',
+                                    //         height: 48,
+                                    //         width: 48,
+                                    //       ),
+                                    //     ),
+                                    //   ], 
+                                    // ),
+                                    // ),                
                                     child: Container(
                                       height: MediaQuery.of(context).size.height*0.23,
                                       width: MediaQuery.of(context).size.width*0.91,

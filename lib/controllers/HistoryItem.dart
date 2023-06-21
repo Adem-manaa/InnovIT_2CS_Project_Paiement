@@ -35,6 +35,7 @@ class HistoryItemController{
         userMail: jsonObj[i]["userMail"],
         cardNumber: jsonObj[i]["cardNumber"],
         ccv: jsonObj[i]["ccv"],
+        idFacture: jsonObj[i]["idFacture"],
         isClaimed: jsonObj[i]["isClaimed"],
         date: jsonObj[i]["date"],
         localisation: jsonObj[i]["localisation"],

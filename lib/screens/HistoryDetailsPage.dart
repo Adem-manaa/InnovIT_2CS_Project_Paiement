@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:innovit_2cs_project_paiement/widgets/SimpleAppbar.dart';
 
+import '../models/HistoryItem.dart';
 import '../utilities/constants.dart';
 class HistoryDetailsPage extends StatelessWidget {
-  const HistoryDetailsPage({Key? key}) : super(key: key);
+  final HistoryItem? historyItem;
+  const HistoryDetailsPage({this.historyItem, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +19,8 @@ class HistoryDetailsPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
-              'command number: ESI-08745',
+            Text(
+              'command number: ' + historyItem!.id.toString(),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -35,26 +37,33 @@ class HistoryDetailsPage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      SizedBox(
-                        width: 125,
-                        height: 125,
-                        child: Image.asset('assets/images/drinkCappuccino.png'),
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'Crème coffee',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 24),
-                          ),
-                          Text(
-                            'A coffee beverage that\n contains espresso and hot\n milk.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 18),
-                          ),
-                        ],
+                       ClipRRect(
+                         borderRadius: BorderRadius.circular(10.0),
+                         child: Image.network(
+                          historyItem!.image ?? "assets/images/drinkCreme.png",
+                          width: 125,
+                          height: 125,
+                                             ),
+                       ),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              historyItem!.name!,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 24),
+                            ),
+                            Text(
+                              historyItem!.recette!,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, fontSize: 15),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 4,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -117,15 +126,15 @@ class HistoryDetailsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '04 march 2023',
+                          '${historyItem!.date}',
                           style: TextStyle(
                             color: deepGreen,
                             fontWeight: FontWeight.bold,
-                            fontSize: 17,
+                            fontSize: 18,
                           ),
                         ),
                         Text(
-                          '03:00 PM',
+                          '',
                           style: TextStyle(
                             color: deepGreen,
                             fontWeight: FontWeight.bold,
@@ -135,11 +144,11 @@ class HistoryDetailsPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Text(
-                    'ESI, Alger',
+                  Text(
+                    historyItem!.localisation!,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 20,
+                      fontSize: 18,
                     ),
                   ),
                   Row(
@@ -164,13 +173,13 @@ class HistoryDetailsPage extends StatelessWidget {
                               Text(
                                 'Card number: ',
                                 style:  TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                 ),
                               ),
                               Text(
-                                '****   ****  ****  1234',
+                                historyItem!.cardNumber!,
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold
                                 ),
                               ),
@@ -182,13 +191,13 @@ class HistoryDetailsPage extends StatelessWidget {
                               Text(
                                 'Card owner: ',
                                 style:  TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                 ),
                               ),
                               Text(
-                                'Me myself and i',
+                                historyItem!.userMail!,
                                 style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold
                                 ),
                               ),
@@ -199,11 +208,11 @@ class HistoryDetailsPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 10,),
-                  const Text(
-                    '40.00 DA',
+                  Text(
+                    historyItem!.price!+'0 DA',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 32,
+                      fontSize: 24,
                     ),
                   ),
                 ],

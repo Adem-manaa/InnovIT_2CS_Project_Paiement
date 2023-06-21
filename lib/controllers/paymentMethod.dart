@@ -38,7 +38,7 @@ class paymentMethoodController {
     
     var response = await http.post(uri,headers: {'Content-Type': 'application/json'},body: json.encode({'id': qrCode["idComm"], 'cartePaiment': paymentMethod.cartePaiment, 'ccv': paymentMethod.ccv, 'expiryDate': paymentMethod.expiryDate, "idDistr": qrCode["idDistr"]}) ); 
     var res = jsonDecode(response.body);
-  
+    print(res);
     if(response.statusCode == 200 && res['resultCode'] == 'Authorised'){
       QuickAlert.show(
         context: context,

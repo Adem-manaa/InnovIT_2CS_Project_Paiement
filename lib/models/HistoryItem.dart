@@ -8,6 +8,7 @@ class HistoryItem {
   String? userMail;
   String? cardNumber;
   String? ccv;
+  int? idFacture;
   bool? isClaimed;
   String? date;
   String? localisation;
@@ -22,6 +23,7 @@ class HistoryItem {
     this.userMail,
     this.cardNumber,
     this.ccv,
+    this.idFacture,
     this.isClaimed,
     this.date,
     this.localisation
@@ -37,6 +39,7 @@ class HistoryItem {
     userMail = json["userMail"];
     cardNumber = json["cardNumber"];
     ccv = json["ccv"];
+    idFacture = json["idFacture"];
     isClaimed = json["isClaimed"];
     date = json["date"];
     localisation = json["localisation"];
@@ -54,6 +57,7 @@ class HistoryItem {
     data["userMail"] = this.userMail;
     data["cardNumber"] = this.cardNumber;
     data["ccv"] = this.ccv;
+    data["idFacture"] = this.idFacture;
     data["isClaimed"] = this.isClaimed;
     data["date"] = this.date;
     data["localisation"] = this.localisation;
