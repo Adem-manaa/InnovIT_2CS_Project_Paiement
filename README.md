@@ -1,16 +1,18 @@
 # innovit_2cs_project_paiement
 
-A new Flutter project.
+Client mobile app for smartBev.
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Project strtcuter
+- in this project we have assets folder that conatains images and fonts of our app
+- lib folder is the main folder
+- inside lib folder we have :
+  - models that contains our data models.
+  - controllers folder: in this folder we have functions of integration between front and back 
+  - screens folder: that folder contains files of our all app pages 
+  - utilities folder: that folder contains constants file that contains constants that we needed in our app for example colors of the app
+  - widgets folder: contains custom widgets that are commonly used for different pages
+  - main file contains main function ( launch function for the app )
